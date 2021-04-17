@@ -1,0 +1,8 @@
+opencv-python
+mdeiapipe
+time
+csv
+scikit-learn
+pandas
+pickle
+os
