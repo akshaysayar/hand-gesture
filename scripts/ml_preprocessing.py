@@ -1,14 +1,14 @@
 import os
 import csv
 import pandas as pd
-
+import numpy as np
 
 def pre_processing(gesture,header):
     filepath="data/raw_"+gesture+".csv" 
     p=open(filepath)
     lines = p.readlines()
     final = []
-    final.append(header)
+    #final.append(header)
     for line in lines:
         if line!="" or line is None:
             s=line.split(",")
@@ -24,10 +24,22 @@ def pre_processing(gesture,header):
                 l.append(int(s[i+1])-int(s[1]))
             l.append(gesture)
             final.append(l)
+            df=pd.DataFrame(final,columns=header)
+        
+            df['index_y']=df['col-18']/df['col-12']
+
+            df['middle_y']=df['col-26']/df['col-20']
+
+            df['ring_y']=df['col-34']/df['col-28']
+
+            df['pinky_y']=df['col-42']/df['col-36']
+
+            df['thumb_y']=df['col-6']/df['col-10']
+            df['thumb_x']=abs(df['col-5']/df['col-9'])
+            df.replace([np.inf, -np.inf], 0, inplace=True)
     filepath = 'data/processed_'+gesture+'.csv'
-    with open(filepath, 'w') as f:
-        write = csv.writer(f)
-        write.writerows(final)
+    df.to_csv(filepath,index=False)
+    
     
 def create_finalfile(header):
     for i in range(1,101):

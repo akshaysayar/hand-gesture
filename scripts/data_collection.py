@@ -24,6 +24,7 @@ def generate_data():
         t_end =time.time() + 3
         #success, img = cap.read()
         success, img = cap.read()
+        img = cv2.flip(img,1)
         cv2.imshow("Image", img)
         while time.time() < t_end:
             success, img = cap.read()
@@ -79,5 +80,5 @@ def main(gesture):
     write_data(data_collected,gesture)
 
 if __name__== "__main__":
-    gesture = ""
+    gesture = "stop"
     main(gesture)

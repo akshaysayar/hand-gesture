@@ -12,7 +12,7 @@ def train_model(inpoot,model_name):
     model = "models/" + model_name
 
     final_train = pd.read_csv(final_data)
-    final_train.shape
+    print(final_train.shape)
 
     # create X (features) and y (response)
     X = final_train.drop("target",axis=1)
@@ -21,12 +21,12 @@ def train_model(inpoot,model_name):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1, random_state=2)
 
     # check classification scores of logistic regression
-    logreg = LogisticRegression()
+    logreg = LogisticRegression(max_iter=10000)
     logreg.fit(X_train, y_train)
     pickle.dump(logreg, open(model, 'wb'))
 
 
 if __name__ == "__main__":
-    inpoot = "final_3.csv"
-    model_name = "basicLR_3.pkl"
+    inpoot = "final_5.csv"
+    model_name = "basicLR_5.pkl"
     train_model(inpoot,model_name)
